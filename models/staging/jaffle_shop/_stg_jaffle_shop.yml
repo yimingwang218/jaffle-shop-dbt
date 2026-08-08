@@ -1,45 +1,45 @@
 models:
   - name: stg_jaffle_shop__customers
-    description: The grain of this table is one unique customer per row. 
+    description: One row per customer from the Jaffle Shop customer source.
     columns:
       - name: customer_id
-        description: Primary key for the customers table
+        description: Stable identifier for the customer.
         data_tests:
           - unique
           - not_null
-          
       - name: first_name
+        description: Customer's given name.
         data_tests:
           - not_null
       - name: last_name
+        description: Customer's family name.
         data_tests:
           - not_null
-          
 
   - name: stg_jaffle_shop__orders
-    description: one order per row
+    description: One row per order from the Jaffle Shop order source.
     columns:
       - name: order_id
-        description: primary key for the orders table
+        description: Stable identifier for the order.
         data_tests:
           - unique
           - not_null
       - name: order_date
+        description: Calendar date on which the order was placed.
         data_tests:
           - not_null
           - is_not_in_future
-
       - name: order_status
         description: "{{ doc('order_status') }}"
         data_tests:
           - accepted_values:
-              arguments: 
-                values: ['completed','shipped','placed','return_pending','returned']
+              arguments:
+                values: ['completed', 'shipped', 'placed', 'return_pending', 'returned']
       - name: customer_id
+        description: Identifier of the customer who placed the order; references `stg_jaffle_shop__customers.customer_id`.
         data_tests:
           - not_null
           - relationships:
-              arguments: 
+              arguments:
                 to: ref('stg_jaffle_shop__customers')
                 field: customer_id
- 
