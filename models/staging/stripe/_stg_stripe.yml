@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_stripe__payment
+    description: One row per payment from the Stripe payment source.
+    columns:
+      - name: payment_id
+        description: Stable identifier for the payment.
+      - name: order_id
+        description: Identifier for the order associated with the payment.
+      - name: payment_method
+        description: Method used to collect the payment.
+      - name: payment_status
+        description: Processing status of the payment as supplied by Stripe.
+      - name: payment_amount
+        description: Payment amount in the source currency, converted from cents to whole currency units.
+      - name: created_at
+        description: Timestamp at which Stripe created the payment record.
